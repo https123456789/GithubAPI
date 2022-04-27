@@ -1,7 +1,7 @@
 {
   "name": "githubapi",
   "version": "1.0.0",
-  "description": "A rate limitless mirror of the GitHub API that can be used durring development of projects.",
+  "description": "A rate limitless mirror of the GitHub API that can be used during development of projects.",
   "main": "index.js",
   "scripts": {
     "start": "cd server; clear; node index.js"
