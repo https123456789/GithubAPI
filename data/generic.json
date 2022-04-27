@@ -1,0 +1,7 @@
+{
+	"info": "/info",
+	"updater": {
+		"interval": 1000,
+		"lut": 0
+	}
+}

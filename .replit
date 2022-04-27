@@ -1,0 +1,10 @@
+run = "./run.sh"
+
+[unitTest]
+language = "nodejs"
+
+[languages.javascript]
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
+
+[languages.javascript.languageServer]
+start = ["typescript-language-server", "--stdio"]
