@@ -1,7 +1,29 @@
 {
-	"info": "/info",
 	"updater": {
-		"interval": 1000,
-		"lut": 0
+		"interval": 3600,
+		"lut": 1651090299,
+		"lup": "/users/https123456789",
+		"pathUpdates": {
+			"/": {
+				"time": 1651089628,
+				"interval": 86400
+			},
+			"/users/https123456789": {
+				"time": 1651158593,
+				"interval": 3600
+			}
+		}
+	},
+	"intervals": {
+		"hour": 3600,
+		"day": 86400,
+		"week": 604800,
+		"month": 2629743,
+		"year": 31556926
+	},
+	"publicInstances": {
+		"https://githubapi.https12345678.repl.co/": {
+			"active": true
+		}
 	}
 }

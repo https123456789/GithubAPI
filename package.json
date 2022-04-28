@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "express": "^4.17.3",
-    "node-dir": "^0.1.17"
+    "node-dir": "^0.1.17",
+    "readline-sync": "^1.4.10"
   }
 }

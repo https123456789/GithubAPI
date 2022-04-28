@@ -57,21 +57,22 @@ var retriveGithubAPIData = (path, method) => {
 	}
 };
 
+var saveData = (fn, data) => {
+	fs.writeFileSync(__dirname + "/" + fn, JSON.stringify(data, null, "\t"));
+	return;
+}
+
 var app = express();
 app.use(basicHandle);
 
 app.get("/", (req, res) => {
-	sendDataFromFile("/home/runner/GithubAPI/data/generic.json", req, res);
-});
-
-app.get("/info", (req, res) => {
-	sendDataFromFile("/home/runner/GithubAPI/data/info.json", req, res);
+	sendDataFromFile(__dirname + "/../data/generic.json", req, res);
 });
 
 app.get("/github*", (req, res) => {
 	res.set("content-type", "application/json");
 	try {
-		var data = fs.readFileSync("/home/runner/GithubAPI/data/generic.json", "utf-8");
+		var data = fs.readFileSync(__dirname + "/../data/generic.json", "utf-8");
 	} catch (err) {
 		console.error(err);
 	}
@@ -81,9 +82,9 @@ app.get("/github*", (req, res) => {
 	var currentTime = Math.floor(new Date().getTime() / 1000);
 	var needToGetData = false;
 	var timeNeed = false;
-	if ((currentTime % data.updater.interval) == 0) {
+	/*if ((currentTime % data.updater.interval) == 0) {
 		timeNeed = true;
-	}
+	}*/
 	var cachedFileExists = false;
 	try {
 		var p = path.replaceAll("/", "%");
@@ -92,11 +93,27 @@ app.get("/github*", (req, res) => {
 	} catch(err) {
 		cachedFileExists = false;
 	}
+	if (data.updater.pathUpdates[path]) {
+		var pd = data.updater.pathUpdates[path];
+		if (currentTime > (pd.time + pd.interval)) {
+			timeNeed = true;
+		}
+	} else {
+		// Generate the path update data
+		data.updater.pathUpdates[path] = {
+			time: currentTime,
+			interval: data.updater.interval
+		}
+		saveData("../data/generic.json", data);
+		timeNeed = true;
+	}
 	if (timeNeed || !cachedFileExists) {
 		needToGetData = true;
 	}
 	var dd = "" + (currentTime % data.updater.interval);
 	if (needToGetData) {
+		data.updater.pathUpdates[path].time = currentTime;
+		saveData("../data/generic.json", data);
 		dd = retriveGithubAPIData(path, "GET")
 			.then((resp) => {
 				var resetDate = new Date(resp.headers["x-ratelimit-reset"] * 1000);
