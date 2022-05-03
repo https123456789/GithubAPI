@@ -8,9 +8,9 @@ Make a request to a public server instance with a path prefix of `/github`.
 
 ### For example:
 
-Normal Github API: `/repos/https123456789/GithubAPI`
+Normal Github API: `https://api.github.com`***`/repos/https123456789/GithubAPI`***
 
-GithubAPI: `/github/repos/https123456789/GithubAPI`
+GithubAPI: `https://githubapi.https123456789.repl.co`***`/github/repos/https123456789/GithubAPI`***
 
 ## Making your own instance:
 

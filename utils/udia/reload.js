@@ -5,15 +5,26 @@ const reload = (data, path) => {
 		return -1;
 	}
 	if (args.length == 0) {
-		console.log("Reloading all modules...");
+		console.log("Reloading all commands...");
+		//console.log(require.cache);
 		var mk = Object.keys(global.cmds);
-		console.log(mk);
+		var i = 0;
 		mk.forEach((item) => {
-			console.log(item);
-		})
+			var p = Math.floor((i / mk.length) * 100);
+			process.stdout.clearLine();
+			process.stdout.write("\rReloading " + p + "% (" + i + "/" + mk.length + ")...");
+			delete require.cache[require.resolve("./" + item + ".js")];
+			global.cmds[item] = require("./" + item + ".js");
+			i += 1;
+		});
+		var p = Math.floor((i / mk.length) * 100);
+		process.stdout.clearLine();
+		process.stdout.write("\rReloading " + p + "% (" + i + "/" + mk.length + ")...");
+		process.stdout.write("\n");
 	} else {
 		console.log("Reloading module '" + args[0] + "'...");
-		global.cmds[args[0]] = require("./udia/" + args[0] + ".js");
+		delete require.cache[require.resolve("./" + args[0] + ".js")];
+		global.cmds[args[0]] = require("./" + args[0] + ".js");
 	}
 }
 
