@@ -355,6 +355,14 @@
 			"/events": {
 				"time": 1653778688,
 				"interval": 86400
+			},
+			"/users/https123456789/events?per_page=2": {
+				"time": 1653790383,
+				"interval": 86400
+			},
+			"/users/https123456789/events?page=2": {
+				"time": 1653790396,
+				"interval": 86400
 			}
 		}
 	},

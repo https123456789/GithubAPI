@@ -80,6 +80,17 @@ app.get("/github*", (req, res) => {
 	data = JSON.parse(data);
 	var path = req.path;
 	path = path.slice(7);
+	var queryKeys = Object.keys(req.query);
+	var getQueryString = "";
+	for (var i = 0; i < queryKeys.length; i++) {
+		if (i == 0) {
+			getQueryString += "?";
+		} else {
+			getQueryString += "&";
+		}
+		getQueryString += queryKeys[i] + "=" + req.query[queryKeys[i]];
+	}
+	path = path + getQueryString;
 	var currentTime = Math.floor(new Date().getTime() / 1000);
 	var needToGetData = false;
 	var timeNeed = false;
