@@ -1,0 +1,11 @@
+{
+	"cmds": {
+		"clear": "./udia/clear.js",
+		"exit": "./udia/exit.js",
+		"help": "./udia/help.js",
+		"mvc": "./udia/mvc.js",
+		"print": "./udia/print.js",
+		"reload": "./udia/reload.js",
+		"setPrompt": "./udia/setPrompt.js"
+	}
+}

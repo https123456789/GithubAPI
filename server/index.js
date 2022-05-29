@@ -7,6 +7,7 @@ var core = require("./core.js");
 var basicHandle = (req, res, next) => {
 	// Runs for every request
 	res.set("content-type", "application/json");
+	res.set("access-control-allow-origin", "*");
 	console.log("Request for " + req.path);
 	next();
 };

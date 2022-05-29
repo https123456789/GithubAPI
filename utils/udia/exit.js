@@ -4,4 +4,7 @@ const exit = (data, path) => {
 	process.exit(0);
 }
 
-module.exports = exit;
+module.exports = {
+	fn: exit,
+	help: "Exits udia."
+};

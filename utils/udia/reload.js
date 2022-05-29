@@ -28,4 +28,7 @@ const reload = (data, path) => {
 	}
 }
 
-module.exports = reload;
+module.exports = {
+	fn: reload,
+	help: "Reloads command or all commands."
+};

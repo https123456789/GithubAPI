@@ -25,4 +25,14 @@ const print = (data, path) => {
 	console.log(cd);
 };
 
-module.exports = print;
+module.exports = {
+	fn: print,
+	help: "Prints the current (possibly scoped) data.",
+	args: [
+		{
+			name: "Data member",
+			required: false,
+			withoutAction: "Prints all data (possibly scoped)"
+		}
+	]
+};

@@ -3,4 +3,6 @@ const mvc = (data, path) => {
 	global.dataPointer = args[0];
 }
 
-module.exports = mvc;
+module.exports = {
+	fn: mvc
+};

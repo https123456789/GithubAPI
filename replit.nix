@@ -8,5 +8,6 @@
 		pkgs.emscripten
 		pkgs.unixtools.ping
 		pkgs.busybox
+		pkgs.gh
 	];
 }
