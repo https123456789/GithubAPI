@@ -9,5 +9,6 @@
 		pkgs.unixtools.ping
 		pkgs.busybox
 		pkgs.gh
+		pkgs.python39Full
 	];
 }

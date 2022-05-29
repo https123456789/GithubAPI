@@ -100,21 +100,22 @@ app.get("/github*", (req, res) => {
 	var cachedFileExists = false;
 	try {
 		var p = path.replaceAll("/", "%");
-		var fe = fs.existsSync("/home/runner/GithubAPI/cache/github/" + p);
+		var fe = fs.existsSync("/home/runner/GithubAPI/cache/github/GET/" + p);
 		cachedFileExists = fe;
 	} catch(err) {
 		cachedFileExists = false;
 	}
-	if (data.updater.pathUpdates[path]) {
-		var pd = data.updater.pathUpdates[path];
+	if (data.GETPathUpdates[path]) {
+		var pd = data.GETPathUpdates[path];
 		if (currentTime > (pd.time + pd.interval)) {
 			timeNeed = true;
 		}
 	} else {
 		// Generate the path update data
-		data.updater.pathUpdates[path] = {
+		data.GETPathUpdates[path] = {
 			time: currentTime,
-			interval: data.updater.interval
+			interval: data.updater.interval,
+			method: "GET"
 		}
 		saveData("../data/generic.json", data);
 		timeNeed = true;
@@ -124,7 +125,7 @@ app.get("/github*", (req, res) => {
 	}
 	var dd = "" + (currentTime % data.updater.interval);
 	if (needToGetData) {
-		data.updater.pathUpdates[path].time = currentTime;
+		data.GETPathUpdates[path].time = currentTime;
 		saveData("../data/generic.json", data);
 		dd = retriveGithubAPIData(path, "GET")
 			.then((resp) => {
@@ -135,7 +136,7 @@ app.get("/github*", (req, res) => {
 				dd = resp.data;
 				dd = JSON.stringify(dd, null, 4);
 				// Save data to cache
-				fs.writeFile("/home/runner/GithubAPI/cache/github/" + (path.replaceAll("/", "%")), dd, (err) => {
+				fs.writeFile("/home/runner/GithubAPI/cache/github/GET/" + (path.replaceAll("/", "%")), dd, (err) => {
 					if (err) {
 						console.error(err);
 					}
@@ -151,7 +152,7 @@ app.get("/github*", (req, res) => {
 				console.log(`\tContent Type: ${err.response.headers["content-type"]}`);
 				console.log(`\tRate Limit:\n\t\tMax: ${err.response.headers["x-ratelimit-limit"]}\n\t\tRemaining: ${err.response.headers["x-ratelimit-remaining"]}\n\t\tReset: ${resetDate.toLocaleString()} (now ${(new Date()).toLocaleString()})`);
 				fs.writeFile(
-					"/home/runner/GithubAPI/cache/github/" +
+					"/home/runner/GithubAPI/cache/github/GET/" +
 					(path.replaceAll("/", "%")),
 					dd,
 					(werr) => {
@@ -164,7 +165,7 @@ app.get("/github*", (req, res) => {
 			});
 	} else {
 		var p = path.replaceAll("/", "%");
-		fs.readFile("/home/runner/GithubAPI/cache/github/" + p, "utf-8", (err, data) => {
+		fs.readFile("/home/runner/GithubAPI/cache/github/GET/" + p, "utf-8", (err, data) => {
 			if (err) {
 				console.log("r");
 				console.error(err);
